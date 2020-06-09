@@ -4,7 +4,7 @@ class Task{
   String title;
   int startDate,endDate;
   List<String> subtasks;
-
+  
   Task({this.id,this.title,this.priority,this.startDate,this.endDate,this.subtasks});
   
   Map<String,dynamic> toMap(){
@@ -26,13 +26,11 @@ class Task{
   } 
 
   Task.fromMap(Map<String,dynamic> record){
-    Task(
-      id: record['id'] as int ?? 0,
-      title: record['title'] as String ?? '',
-      priority: record['priority'] as int ?? 0,
-      startDate: record['startDate'] as int ?? DateTime.now().millisecondsSinceEpoch,
-      endDate: record['endDate'] as int ?? DateTime.now().millisecondsSinceEpoch,
-      subtasks: (record['subtasks'] as String ?? '').split('|||'),
-    );
+      id= record['id'] as int ?? 0;
+      title= record['title'] as String ?? '';
+      priority= record['priority'] as int ?? 0;
+      startDate= record['startDate'] as int ?? DateTime.now().millisecondsSinceEpoch;
+      endDate= record['endDate'] as int ?? DateTime.now().millisecondsSinceEpoch;
+      subtasks= (record['subtasks'] as String ?? '').split('|||');
   }
 }
