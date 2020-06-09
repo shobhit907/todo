@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/screens/home/showTasks.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -21,7 +22,7 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: SizedBox(child: FloatingActionButton(onPressed: (){},child:Icon(Icons.add),)),
-      body: Text("Hello"),
+      body: ShowTasks(),
     );
   }
 }

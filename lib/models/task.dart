@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 class Task{
   int id,priority;
@@ -7,16 +6,24 @@ class Task{
   List<String> subtasks;
 
   Task({this.id,this.title,this.priority,this.startDate,this.endDate,this.subtasks});
+  
   Map<String,dynamic> toMap(){
-    return {
-      'id':id,
+    Map<String,dynamic> _ret={
       'title':title,
       'priority':priority,
       'startDate':startDate,
       'endDate':endDate,
-      'subtasks':subtasks,
     };
-  }
+    String _combineSubTasks="";
+    subtasks.forEach((element) {
+      _combineSubTasks+=element+"|||";
+     });
+    _ret['subtasks']=_combineSubTasks;
+    if(id!=null){
+      _ret['id']=id;
+    }
+    return _ret;
+  } 
 
   Task.fromMap(Map<String,dynamic> record){
     Task(
@@ -25,7 +32,7 @@ class Task{
       priority: record['priority'] as int ?? 0,
       startDate: record['startDate'] as int ?? DateTime.now().millisecondsSinceEpoch,
       endDate: record['endDate'] as int ?? DateTime.now().millisecondsSinceEpoch,
-      subtasks: record['subtasks'] as List<String>,
+      subtasks: (record['subtasks'] as String ?? '').split('|||'),
     );
   }
 }
