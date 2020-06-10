@@ -10,8 +10,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> popUpOptions = ["Default", "Priority Low to High", "Priority High to Low"];
-  final _sortNotifier=ValueNotifier<int>(0);
+  List<String> popUpOptions = [
+    "Default",
+    "Priority Low to High",
+    "Priority High to Low"
+  ];
+  final _sortNotifier = ValueNotifier<int>(0);
+  DatabaseService _databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +33,8 @@ class _HomeState extends State<Home> {
                 IconButton(icon: Icon(Icons.menu), onPressed: null),
                 PopupMenuButton(
                     tooltip: "Sort by Priority",
-                    onSelected: (value) => _sortNotifier.value=popUpOptions.indexOf(value),
+                    onSelected: (value) =>
+                        _sortNotifier.value = popUpOptions.indexOf(value),
                     itemBuilder: (context) {
                       return popUpOptions
                           .map((e) => PopupMenuItem(child: Text(e), value: e))
@@ -43,11 +49,16 @@ class _HomeState extends State<Home> {
         onPressed: () async {
           _saveTodo(context);
         },
+        tooltip: "Add Todo",
         child: Icon(Icons.add),
       )),
-      body: ValueListenableBuilder(valueListenable: _sortNotifier, builder: (context,value,_){
-        return ShowTasks(ordering: value,);
-      }),
+      body: ValueListenableBuilder(
+          valueListenable: _sortNotifier,
+          builder: (context, value, _) {
+            return ShowTasks(
+              ordering: value,
+            );
+          }),
     );
   }
 
@@ -57,12 +68,14 @@ class _HomeState extends State<Home> {
       return AddTask();
     }));
     if (_task == null) {
-      print("Task is NULL");
+      // print("Task is NULL");
       return;
     }
-    DatabaseService _databaseService = DatabaseService();
-    await _databaseService.saveTask(_task);
-    print("Saved");
+    // print("Saving task...");
+    int idOfTask=await _databaseService.saveTask(_task);
+    // print("Saved");
+    // print("ID is :"+idOfTask.toString());
+    // print(_task.title.toString());
     setState(() {});
   }
 }

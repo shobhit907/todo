@@ -3,7 +3,7 @@ class Task{
   int id,priority;
   String title;
   int startDate,endDate;
-  List<String> subtasks;
+  List<int> subtasks;
   
   Task({this.id,this.title,this.priority,this.startDate,this.endDate,this.subtasks});
   
@@ -16,7 +16,7 @@ class Task{
     };
     String _combineSubTasks="";
     subtasks.forEach((element) {
-      _combineSubTasks+=element+"|||";
+      _combineSubTasks+=element.toString()+"|||";
      });
     _ret['subtasks']=_combineSubTasks;
     if(id!=null){
@@ -31,6 +31,14 @@ class Task{
       priority= record['priority'] as int ?? 0;
       startDate= record['startDate'] as int ?? DateTime.now().millisecondsSinceEpoch;
       endDate= record['endDate'] as int ?? DateTime.now().millisecondsSinceEpoch;
-      subtasks= (record['subtasks'] as String ?? '').split('|||');
+      String _temp=record['subtasks'];
+      // print(_temp);
+      // print(_temp.substring(0,_temp.length-3).split('|||'));
+      if(_temp.length>0){
+        _temp=_temp.substring(0,_temp.length-3);
+        subtasks= _temp.split('|||').map((e) => int.parse(e)).toList();
+      }else{
+        subtasks=new List<int>();
+      }
   }
 }

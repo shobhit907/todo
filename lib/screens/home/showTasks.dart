@@ -42,6 +42,8 @@ class _ShowTasksState extends State<ShowTasks> {
                     );
                   });
             } else {
+              print(_snapshot.data);
+              print("Loading All Tasks");
               return Center(child: Loading());
             }
           }),
