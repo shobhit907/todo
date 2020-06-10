@@ -11,6 +11,11 @@ class ShowTasks extends StatefulWidget {
 
 class _ShowTasksState extends State<ShowTasks> {
   DatabaseService _databaseService=DatabaseService();
+  void _reload(){
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +23,7 @@ class _ShowTasksState extends State<ShowTasks> {
         if(_snapshot.hasData){
           _snapshot.data.sort((task1,task2){return task2.priority-task1.priority;});
           return ListView.builder(itemCount: _snapshot.data.length,itemBuilder: (BuildContext context,int index){
-            return ShowATask(task: _snapshot.data[index]);
+            return ShowATask(task: _snapshot.data[index],deleteCallback: _reload,);
           });
         }else{
           return Center(child: Loading());

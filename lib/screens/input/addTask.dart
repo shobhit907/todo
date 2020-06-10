@@ -133,7 +133,6 @@ class _AddTaskState extends State<AddTask> {
           ),
           autovalidate: true,
           format: format,
-          initialValue: DateTime.now(),
           onShowPicker: (context, newValue) async {
             var _selectedDate = await showDatePicker(
                 context: context,

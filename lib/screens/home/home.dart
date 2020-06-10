@@ -10,6 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int popUpValue = 0;
+  List<String> popUpOptions = ["Default", "Low to High", "High to Low"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +26,21 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(icon: Icon(Icons.menu), onPressed: null),
-                IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+                PopupMenuButton(
+                    initialValue: popUpOptions[0],
+                    onSelected: (value) => print(value),
+                    itemBuilder: (context) {
+                      return popUpOptions
+                          .map((e) => PopupMenuItem(child: Text(e), value: e))
+                          .toList();
+                    }),
               ],
             )),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: SizedBox(
           child: FloatingActionButton(
-        onPressed: () async{
+        onPressed: () async {
           _saveTodo(context);
         },
         child: Icon(Icons.add),
@@ -45,15 +54,13 @@ class _HomeState extends State<Home> {
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return AddTask();
     }));
-    if(_task==null){
+    if (_task == null) {
       print("Task is NULL");
       return;
     }
     DatabaseService _databaseService = DatabaseService();
     await _databaseService.saveTask(_task);
     print("Saved");
-    setState(() {
-      
-    });
+    setState(() {});
   }
 }

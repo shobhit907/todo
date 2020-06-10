@@ -40,4 +40,8 @@ class DatabaseService {
     return _ret;
   }
 
+  Future deleteTask(int idx)async{
+    Database _db=await db;
+    return _db.delete(_tableName,where: "id=$idx");
+  }
 }
