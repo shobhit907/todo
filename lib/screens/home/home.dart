@@ -10,8 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int popUpValue = 0;
-  List<String> popUpOptions = ["Default", "Low to High", "High to Low"];
+  List<String> popUpOptions = ["Default", "Priority Low to High", "Priority High to Low"];
+  final _sortNotifier=ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +27,8 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 IconButton(icon: Icon(Icons.menu), onPressed: null),
                 PopupMenuButton(
-                    initialValue: popUpOptions[0],
-                    onSelected: (value) => print(value),
+                    tooltip: "Sort by Priority",
+                    onSelected: (value) => _sortNotifier.value=popUpOptions.indexOf(value),
                     itemBuilder: (context) {
                       return popUpOptions
                           .map((e) => PopupMenuItem(child: Text(e), value: e))
@@ -45,7 +45,9 @@ class _HomeState extends State<Home> {
         },
         child: Icon(Icons.add),
       )),
-      body: ShowTasks(),
+      body: ValueListenableBuilder(valueListenable: _sortNotifier, builder: (context,value,_){
+        return ShowTasks(ordering: value,);
+      }),
     );
   }
 

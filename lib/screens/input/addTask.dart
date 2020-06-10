@@ -15,6 +15,9 @@ class _AddTaskState extends State<AddTask> {
   TextEditingController _subtasks = TextEditingController();
   List<String> priorities = ['Important', 'Urgent', 'Critical'];
   int _priorityValue = 0;
+  _AddTaskState(){
+    // _titleController.value=TextEditingValue(text:"1");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
