@@ -96,8 +96,8 @@ class _AddSubTaskState extends State<AddSubTask> {
     );
   }
 
-  DatabaseService _databaseService=DatabaseService();
-  Future _saveSubTodo() async{
+  DatabaseService _databaseService = DatabaseService();
+  Future _saveSubTodo() async {
     if (_titleController.value.text.isEmpty ||
         _dateRange[0] == null ||
         _dateRange[1] == null) {
@@ -110,10 +110,13 @@ class _AddSubTaskState extends State<AddSubTask> {
         startDate: _dateRange[0].millisecondsSinceEpoch,
         endDate: _dateRange[1].millisecondsSinceEpoch,
         subtasks: List<int>());
-      print("Subtask getting saved");
-      int _idSubtask=await _databaseService.saveSubTask(_task);
-      print("Subtask with id "+_idSubtask.toString()+" saved");
-    return Navigator.pop(context, _idSubtask,);
+    print("Subtask getting saved");
+    int _idSubtask = await _databaseService.saveSubTask(_task);
+    print("Subtask with id " + _idSubtask.toString() + " saved");
+    return Navigator.pop(
+      context,
+      _idSubtask,
+    );
   }
 
   final format = DateFormat("dd-MM-yyyy");

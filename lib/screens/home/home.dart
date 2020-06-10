@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
       return;
     }
     // print("Saving task...");
-    int idOfTask=await _databaseService.saveTask(_task);
+    int idOfTask = await _databaseService.saveTask(_task);
     // print("Saved");
     // print("ID is :"+idOfTask.toString());
     // print(_task.title.toString());

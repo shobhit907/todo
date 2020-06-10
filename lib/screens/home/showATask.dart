@@ -41,14 +41,14 @@ class ShowATask extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.0,0.0,16.0,0.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
                 child: FutureBuilder(
                     future: _databaseService.getAllSubTasks(task.subtasks),
                     builder: (context, AsyncSnapshot<List<Task>> _snapshot) {
                       if (_snapshot.hasData) {
                         return Container(
                           child: ListView.builder(
-                            shrinkWrap: true,
+                              shrinkWrap: true,
                               itemCount: _snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
@@ -57,13 +57,13 @@ class ShowATask extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(DateFormat('d MMM y').format(
-                                              DateTime.fromMillisecondsSinceEpoch(
+                                      Text(DateFormat('d MMM y').format(DateTime
+                                              .fromMillisecondsSinceEpoch(
                                                   _snapshot
                                                       .data[index].startDate)) +
                                           " - " +
-                                          DateFormat('d MMM y').format(
-                                              DateTime.fromMillisecondsSinceEpoch(
+                                          DateFormat('d MMM y').format(DateTime
+                                              .fromMillisecondsSinceEpoch(
                                                   _snapshot
                                                       .data[index].endDate))),
                                       Text(priorities[
