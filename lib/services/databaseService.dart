@@ -19,7 +19,7 @@ class DatabaseService {
   Future<Database> _initDb() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, _dbName);
-    await deleteDatabase(path);
+    // await deleteDatabase(path);
     return await openDatabase(path, version: 1,
         onCreate: (Database _db, int version) async {
       await _db.execute(
